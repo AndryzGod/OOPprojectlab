@@ -1,0 +1,170 @@
+#include <iostream>
+
+using namespace std;
+
+class conclusion {
+	private:
+		virtual char* display () = 0;
+	public:
+		Employee () {}
+		void run () {
+			cout << "Hello." << display() << endl << endl;
+		}
+};
+
+class welcome : public conclusion {
+	private:
+		char* display() {
+			return (char*)"Welcome to the game."; 
+		}
+};
+
+class creator {
+	protected:	
+		string name_hero;
+};
+
+class crtr_hero : public creator {
+	public:
+		crtr_hero (string named) {
+			name_hero = named;
+			cout << "Name of hero is " << name_hero << endl << endl;
+		
+		}
+};
+
+class hero;
+
+class craft_weapon {
+	friend class hero;
+	public:
+		int detail;	
+		craft_weapon() : detail (0) {}
+		craft_weapon(int adddetail) {detail = adddetail;}
+		void show (){
+			cout << endl << "Your damage = " << detail << endl << endl;
+		}
+			
+		craft_weapon operator+(const craft_weapon&r) {
+			
+			craft_weapon result;
+			result.detail = detail + r.detail;
+			return result;
+		}
+};
+
+class monster {
+	friend class hero;
+	private:
+		string static name;
+		int health;
+	public:	
+		monster () {
+			name = "Vasya";
+			health = 100;
+		}
+		
+		~monster () {
+			cout << endl;
+			cout << "Game over." << endl;
+		} 		
+};
+
+class hero {
+	private:
+		int uron;
+	public:
+		void set(int x){
+			this -> uron = x;
+		}
+		
+		void damage (monster &d) {
+			bool hit;
+			int k=0;
+			for (d.health = 100; d.health >0; d.health -=0) {
+			
+			cout << "Health of the monster " << d.name << " = " << d.health << endl;
+			cout << "Enter 1 for hit or 0 for pass : ";
+			cin >> hit;
+			if (hit == 1) {
+			d.health-=uron;
+			k++;	
+			cout << endl;
+			}
+	
+			else {
+			
+			cout << endl;
+			cout << "You did not inflict damage." << endl; 	
+		}
+		}
+		if (k > 0) {
+			cout << "------------------------------------------------------------------------" << endl;
+			cout << "Monster "<< d.name <<" id dead." << endl << endl;
+		}
+	}
+};
+
+string monster::name;
+
+class first{ 
+public:
+    class second {  
+     public:  
+	 		int c;                           
+        	second(int cc): c(0) {
+			  cout << "Mission complete." << endl;
+			  }   
+    };   
+}; 
+
+int main() {
+	
+	welcome hi;
+	hi.run();
+	conclusion *xwealcome = &hi;
+	
+	string named;
+	cout << "Enter the name of the hero : ";
+	cin >> named;
+	
+	crtr_hero unnamed(named);
+	
+	cout << "Mission: kill the monster Vasya!" << endl;
+	cout << endl;
+	
+	int a,b,c; 
+	
+	cout << "Craft weapon" << endl;
+	cout << "Take handle. Enter 0 for take wooden handle(5 dmg) or 1 for take iron handle(10 dmg): ";
+	cin >> a;
+	if(a == 0) {
+		b = 5;
+	}
+	else {
+		b = 10;
+	}
+	
+	cout << "Take handle. Enter 0 for take wooden blade(10dmg) or 1 for take iron blade(20dmg): ";
+	cin >> a;
+	if(a == 0) {
+		c = 10;
+	}
+	else {
+		c = 20;
+	}
+	
+	int x = b+c;
+	
+	craft_weapon detail1(b), detail2(c), weapon = x;
+	
+	weapon.show();
+	craft_weapon hammer;
+	monster vasya;
+	hero volodya;
+	volodya.set(x);
+	volodya.damage(vasya);
+	first::second cc(0); 
+	
+return 0;
+}
